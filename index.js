@@ -1,61 +1,92 @@
-var express = require("express");
-var app = express(); 
-var path = require("path");
-var moment = require("moment");
-var $ = require('jquery');
-var jsdom = require("jsdom");
-var window = jsdom.jsdom().defaultView;
+const express = require("express");
+const app = express(); 
+const path = require("path");
+const models = require('./server/db');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const rp = require('request-promise')
+var router = require('express').Router();
 
-jsdom.jQueryify(window, "http://code.jquery.com/jquery.js", function () {
-  var $ = window.$;
+// var moment = require("moment");
 
-  });
 
-const CHART = $("#myChart");
 
-let myChart = new Chart(CHART, {
-	    type: 'bar',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
+// const ajax = require('ajax')
 
+const $ = require('jquery');
+const _ = require("lodash");
+
+const request = require('request');
+
+
+
+app.get('/matches', function (req, res, next) {
+
+		var options = {
+	    	uri: 'http://api.football-data.org/v1/competitions/398/leagueTable',
+	    	qs: {
+	    },
+	    headers: {
+	        'X-Auth-Token': '17d847c369414e6fa27e53d04edccd4c'
+	    },
+	    json: true // Automatically parses the JSON string in the response 
+	};
+	 
+	rp(options)
+	    .then(function (matches) {
+	    	console.log(matches)
+	    	res.send(matches);
+	    })
+	    .catch(function (err) {
+	        console.log(err);
+	    });
+
+})
+	
+
+app.use(bodyParser.urlencoded()); //needed so that frontend can send stuff to backend
+app.use(bodyParser.json());//needed so that frontend can send stuff to backend 
 
 app.use(express.static(__dirname + "/public"));
 
-app.get("/", function(req, res){
-	res.sendFile(path.join(__dirname+"/index.html")); 
+
+
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// var npmPath = path.join(__dirname, '../node_modules');
+// var publicPath = path.join(__dirname, '../public');
+var browserPath = path.join(__dirname, './browser');
+
+// app.use(express.static(npmPath));
+// app.use(express.static(publicPath));
+app.use(express.static(browserPath));
+
+app.get("/", (req, res) => res.sendFile(path.join(__dirname+"/browser/index.html"))); 
+
+
+app.get("/stuff",(req,res,next) => {
+	models.User.findAll({})
+	.then(elements => res.send(elements))
+	.catch(next);
 })
 
-app.listen(3002);
+app.post('/users', (req,res,next) =>{
+  models.User.create(req.body)
+  .then(user => res.status(201).json(user))
+  .catch(next);
+});
 
+
+
+// models.User.sync().then(() => {app.listen(3002, () => console.log("Server is listening!"))}).catch((err) => console.error(err));
+
+models.User.sync()
+	.then(() => {
+		app.listen(3002, () => {
+			console.log("Server is listening!");
+		});
+	}).catch(err => {
+		console.error(err)
+	});
