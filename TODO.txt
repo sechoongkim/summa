@@ -1,6 +1,6 @@
 ICEBOX
 -Connect to MongoDB collection in model/db.js
--Create 
+-Remove unnnecessary dependencies
 
 Tickets:
 /****
