@@ -1,0 +1,16 @@
+ICEBOX
+-Connect to MongoDB collection in model/db.js
+-Create 
+
+Tickets:
+/****
+SJ:
+
+
+****/
+
+/****
+Sej:
+
+
+****/

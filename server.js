@@ -1,13 +1,17 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const path = require("path");
+const express = require('express'),
+	app = express(),
+ 	bodyParser = require('body-parser'),
+ 	morgan = require('morgan'),
+ 	path = require('path'),
+ 	cookieParser = require('cookie-parser');
 
-// body Parsing btwn server-client
-app.use(morgan('dev'));
+let routes = require('./routes/index');
+
+// body parsing btwn server-client
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
+app.use(cookieParser());
 
 // serve static files
 var browserPath = path.join(__dirname, './browser');
@@ -18,6 +22,36 @@ app.listen(3000, function() {
 });
 
 
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');
+/********************************* 
+	ERROR HANDLING MIDDLEWARE
+**********************************/
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
+
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
+
+
+module.exports = app;
