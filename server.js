@@ -1,30 +1,23 @@
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const path = require("path");
 
-const User = require('./models/User');
-const Promise = require('sequelize').Promise;
-const db = require('./server/db')
-const seedUsers = () => {
+// body Parsing btwn server-client
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-    const users = [
-        {
-            name: 'Test',
-            email: 'testing@fsa.com'
-            
-        },
-        {
-            name: 'Barack',
-            email: 'obama@gmail.com'
-    
-        }
-    ];
+// serve static files
+var browserPath = path.join(__dirname, './browser');
+app.use(express.static(browserPath));
 
-    const creatingUsers = users.map(function (userObj) {
-        return User.create(userObj);
-    });
+app.listen(3000, function() {
+  console.log('listening on 3000');
+});
 
-    return Promise.all(creatingUsers);
-};
 
-db.sync({ force: true })
-    .then(() => {
-        return seedUsers();
-    })
+app.get('/', (req, res) => {
+	res.sendFile(__dirname + '/index.html');
+});
