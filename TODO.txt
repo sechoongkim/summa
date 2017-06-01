@@ -1,16 +1,24 @@
-ICEBOX
--Connect to MongoDB collection in model/db.js
+ICEBOX:
+------------------------------------------------------------
 -Remove unnnecessary dependencies
+-Error views for the front end
+-Basic Testing
 
-Tickets:
-/****
+
+
+TICKETS:
+------------------------------------------------------------
+****
 SJ:
 
 
-****/
-
-/****
+****
 Sej:
 
 
-****/
+****
+
+COMPLETED (recent):
+------------------------------------------------------------
+-Connected to Mongo
+-Modularize backend initialization code and scalable code

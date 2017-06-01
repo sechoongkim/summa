@@ -8,8 +8,10 @@ var init = require('./config/init')(),
 	chalk  = require('chalk'),
 	app = require('./config/express')();
 
+// promisify db interactions
 mongoose.Promise = global.Promise;
 
+// connect to mongo
 connect()
 	.on('error', console.error)
 	.on('disconnected', connect)

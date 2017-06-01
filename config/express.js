@@ -13,6 +13,7 @@ const express = require('express'),
     MongoStore = require('connect-mongo')(session),
     config = require('./config'); // jshint ignore:line
 
+// instantiate app and set core parameters
 module.exports = function() {
     var app = express();   
 
@@ -65,8 +66,7 @@ module.exports = function() {
         app.set('server', server);
 
     } else {
-        // production error handler
-        // no stacktraces leaked to user
+        // production error handler; no stacktraces leaked to user
         app.use(function(err, req, res, next) {
             res.status(err.status || 500);
             res.render('error', {
