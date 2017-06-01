@@ -7,20 +7,21 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('TestieController',($scope, RegisterFactory, $state, $stateParams) =>{
+app.controller('TestieController', function($scope, RegisterFactory, $state, $stateParams) {
+	console.log("hi");
 	$scope.yo = "wuss good sejipoo you hard twerking animallll";
 	console.log("hi");
 	RegisterFactory.matches()
 		.then((d) => {
 			$scope.data = d;
-		})
+		});
 
 	$scope.sendLogin = () => {
 		$scope.error = '';
 		RegisterFactory.create($scope.login)
-			.catch((err) => {//this catches all errors not just the email in use error-> we gotta dissect it further 
+			.catch((err) => {
 				if(err.data.includes("notNull Violation")){
-					$scope.error = "notNull Violation"
+					$scope.error = "notNull Violation";
 				}
 				else{
 				$scope.error = 'First Name is already in Use';
@@ -28,12 +29,12 @@ app.controller('TestieController',($scope, RegisterFactory, $state, $stateParams
 				// $scope.log.name = ''
 				}
 				});
-	}
+	};
 
 	$scope.goToPage = () => {
 		console.log("yo");
 		$state.go('pages',{}); 
-	}
+	};
 
 
 
