@@ -1,57 +1,32 @@
-const express = require('express'),
-	app = express(),
- 	bodyParser = require('body-parser'),
- 	morgan = require('morgan'),
- 	path = require('path'),
- 	cookieParser = require('cookie-parser');
+'use-strict';
+/**
+ * Module dependencies.
+ */
+var init = require('./config/init')(),
+	config = require('./config/config'),
+	mongoose = require('mongoose'),
+	chalk  = require('chalk'),
+	app = require('./config/express')();
 
-let routes = require('./routes/index');
+mongoose.Promise = global.Promise;
 
-// body parsing btwn server-client
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(morgan('dev'));
-app.use(cookieParser());
+connect()
+	.on('error', console.error)
+	.on('disconnected', connect)
+	.once('open', listen);
 
-// serve static files
-var browserPath = path.join(__dirname, './browser');
-app.use(express.static(browserPath));
+function listen() {
+	app.get('server').listen(config.port);
 
-app.listen(3000, function() {
-  console.log('listening on 3000');
-});
+	// expose app
+	module.exports = app;
 
-
-/********************************* 
-	ERROR HANDLING MIDDLEWARE
-**********************************/
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
+	console.log("MEAN.JS application started on port " + config.port);
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
+// connect to mongoDB
+function connect() {
+	var params = { server: { socketOptions: { keepAlive: 1 } } };
+	return mongoose.connect(config.db, params).connection;
+}
 
-
-module.exports = app;
