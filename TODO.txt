@@ -1,0 +1,24 @@
+ICEBOX:
+------------------------------------------------------------
+-Remove unnnecessary dependencies
+-Error views for the front end
+-Basic Testing
+
+
+
+TICKETS:
+------------------------------------------------------------
+****
+SJ:
+
+
+****
+Sej:
+
+
+****
+
+COMPLETED (recent):
+------------------------------------------------------------
+-Connected to Mongo
+-Modularize backend initialization code and scalable code

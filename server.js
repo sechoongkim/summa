@@ -1,23 +1,34 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const path = require("path");
+'use-strict';
+/**
+ * Module dependencies.
+ */
+var init = require('./config/init')(),
+	config = require('./config/config'),
+	mongoose = require('mongoose'),
+	chalk  = require('chalk'),
+	app = require('./config/express')();
 
-// body Parsing btwn server-client
-app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// promisify db interactions
+mongoose.Promise = global.Promise;
 
-// serve static files
-var browserPath = path.join(__dirname, './browser');
-app.use(express.static(browserPath));
+// connect to mongo
+connect()
+	.on('error', console.error)
+	.on('disconnected', connect)
+	.once('open', listen);
 
-app.listen(3000, function() {
-  console.log('listening on 3000');
-});
+function listen() {
+	app.get('server').listen(config.port);
 
+	// expose app
+	module.exports = app;
 
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');
-});
+	console.log("MEAN.JS application started on port " + config.port);
+}
+
+// connect to mongoDB
+function connect() {
+	var params = { server: { socketOptions: { keepAlive: 1 } } };
+	return mongoose.connect(config.db, params).connection;
+}
+
