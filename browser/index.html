@@ -1,11 +1,14 @@
 <!doctype html>
 <html>
 	<head>
+
         <!--don't need an index.js src because we are linking it from index.js -->
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js"></script>
     	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/style.css" />
 
         <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js" defer></script>
     	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -18,8 +21,12 @@
         <script src= "/js/page/page.js" defer></script>
         <script src= "/js/page/page.state.js" defer></script>
         <script src= "/js/home/home.js" defer></script>
+        <script src= "/js/navbar/navbar.js" defer></script>
+
+
     </head>
     <body ng-app = "TestieApp">
+        <navbar></navbar>
         <ui-view></ui-view> 
     </body>
 </html>
