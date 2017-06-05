@@ -8,6 +8,18 @@ var _ = require('lodash'),
 	request = require('request'),
 	config = require('../../../config/config');
 
+function findError(user) {
+	return User.findOne({email: user.email})
+			.then((entry) => {
+				if (entry) return "Email is already in use.";
+				else return User.findOne({username: user.username});
+			}).then((res) => {
+				if (res == "Email is already in use.") return entry;
+				else if (res) return "Username is already in use.";
+				else return "Something went wrong. Please try again.";
+			});
+}
+
 /**
  * Signup
  */
@@ -18,24 +30,26 @@ var _ = require('lodash'),
  	// create a new instance of the user
  	var user = new User(req.body);
  	var message = null;
-
- 	console.log(user.username + " has signed up!");
-
  	// fill in missing fields
  	user.provider = 'local';
  	user.displayName = user.firstName + ' ' + user.lastName;
 
+ 	var errMssg;
  	// save the new user to the database
  	user.save(function(err) {
  		if (err) {
- 			return res.status(400).send({
- 				// TODO: change so that this is handled by an error handling module
- 				message: "Error creating user!"
+ 			console.log("error!");
+ 			User.findOne({email: user.email}, function(err, entry) {
+ 				if (entry) errMssg = "Email is already in use";
+ 				else errMssg = "Username is already in use";
+ 				res.status(400).send({
+ 					message: errMssg
+ 				});
  			});
  		} else {
  			// remove sensitive info before login for security measures
  			user.password = undefined;
-
+ 			console.log(user.username + " has signed up!");
  			req.login(user, function(err) {
  				if (err) {
  					res.status(400).send(err);
