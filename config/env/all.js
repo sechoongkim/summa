@@ -9,5 +9,10 @@ module.exports = {
 	sessionSecret: 'McGoogle',
 	sessionCollection: 'sessions',
 	assets: {},
-	db: 'mongodb://localhost/beets'
+	db: 'mongodb://localhost/beets',
+	spotifyAuth: {
+		clientID: 'f85c6f433fc24272b7879e045e1cc366',
+		clientSecret: '463eed5dc7fe4011b25ce6e78677fe7e',
+		callbackURL: '/auth/spotify/callback'
+	}
 };
