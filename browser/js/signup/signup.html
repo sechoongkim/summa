@@ -1,0 +1,42 @@
+
+
+<div class="container">
+
+  <br><br>
+  <div class="row">
+    <h3>Sign Up</h3>
+    <form name="registerForm" class="col s12 m8 l7" ng-submit="registerForm.$valid && sendRegister(register)">
+      <div class="error" type="danger" ng-show="error">
+        {{ error }}
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input ng-model="register.firstName" type="text" class="validate" required>
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input ng-model="register.lastName" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input ng-model="register.email" type="email" class="validate" required>
+          <label for="email" data-error="Invalid Email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input ng-model="register.password" type="password" class="validate" required>
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <button type="submit" class="btn waves-effect waves-light ">Submit</button>
+    </form>
+    <div class="col s12 m1 l1"></div>
+    <div class="col s12 m3 l4">
+
+
+    </div>
+  </div>
+</div>

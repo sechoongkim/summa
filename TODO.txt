@@ -5,15 +5,16 @@ ICEBOX:
 -Basic Testing
 
 
-
 TICKETS:
 ------------------------------------------------------------
 ****
 SJ:
+-Create spotify oath login stuff 
 
 
 ****
 Sej:
+-Create views for home, user state, basic routes to connect to backend, tables
 
 
 ****
