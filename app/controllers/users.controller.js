@@ -7,6 +7,5 @@ var _ = require('lodash');
  */
 module.exports = _.extend(
 	require('./users/users.authentication.controller'),
-	require('./users/users.authorization.controller'),
-	require('./playlist/playlist.create')
+	require('./users/users.authorization.controller')
 );
