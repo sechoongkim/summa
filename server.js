@@ -23,7 +23,7 @@ function listen() {
 	// expose app
 	module.exports = app;
 
-	console.log("MEAN.JS application started on port " + config.port);
+	console.log(chalk.green("MEAN.JS application started on port " + config.port));
 }
 
 // connect to mongoDB

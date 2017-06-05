@@ -3,7 +3,11 @@ ICEBOX:
 -Remove unnnecessary dependencies
 -Error views for the front end
 -Basic Testing
-
+-set up https
+-use sockets for user joins
+-double-check error forwarding on backend
+-bower install front-end dependencies
+-add salts and hashes for passwords
 
 TICKETS:
 ------------------------------------------------------------
@@ -21,5 +25,6 @@ Sej:
 
 COMPLETED (recent):
 ------------------------------------------------------------
--Connected to Mongo
+-Programmatically create new MongoSesh on launch
+-Connect to locally created DB
 -Modularize backend initialization code and scalable code
