@@ -7,6 +7,7 @@ ICEBOX:
 -use sockets for user joins
 -double-check error forwarding on backend
 -bower install front-end dependencies
+-add salts and hashes for passwords
 
 
 TICKETS:

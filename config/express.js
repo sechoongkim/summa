@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 const express = require('express'),
+    fs = require('fs'),
     http = require('http');
  	bodyParser = require('body-parser'),
  	morgan = require('morgan'),
@@ -11,6 +12,8 @@ const express = require('express'),
  	cookieParser = require('cookie-parser'),
     session = require('express-session'),
     MongoStore = require('connect-mongo')(session),
+    passport = require('passport'),
+
     config = require('./config'); // jshint ignore:line
 
 // instantiate app and set core parameters
@@ -42,6 +45,15 @@ module.exports = function() {
         })
     });
     app.use(sesh);
+
+    // register all models
+    var models_path = path.dirname(require.main.filename) + '/app/models';
+    fs.readdirSync(models_path).forEach(function(file) {
+        if (~file.indexOf('.js')) require(models_path + '/' + file);
+    });
+
+    // pass passport for configuration
+    require('./passport')(passport);
 
     /********************************* 
         ERROR HANDLING MIDDLEWARE

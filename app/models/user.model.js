@@ -69,6 +69,10 @@ var UserSchema = new Schema({
 		default	: '',
 		validate: [validateLocalStrategyPassword, 'Password must be longer than 8 characters']
 	},
+	provider            : {
+		type              : String,
+		required          : 'Provider is required'
+	},
 	roles               : {
 		type              : [{
 			type            : String,
