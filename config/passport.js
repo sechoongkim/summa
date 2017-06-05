@@ -5,6 +5,18 @@ var User = require('mongoose').model('User'),
 	LocalStategy = require('passport-local').Strategy;
 
 module.exports = function(passport) {
+	// Serialize sessions
+	passport.serializeUser(function(user, done) {
+		done(null, user.id);
+	});
+
+	// Deserialize sessions
+	passport.deserializeUser(function(id, done) {
+	    User.findById(id, function(err, user) {
+	        done(err, user);
+	    });
+	});
+	
 	passport.use(new LocalStategy({
 		usernameField: 'username',
 		passwordField: 'password'

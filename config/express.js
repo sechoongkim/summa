@@ -46,11 +46,18 @@ module.exports = function() {
     });
     app.use(sesh);
 
+    // use passport session
+    app.use(passport.initialize());
+    app.use(passport.session());
+
     // register all models
     var models_path = path.dirname(require.main.filename) + '/app/models';
     fs.readdirSync(models_path).forEach(function(file) {
         if (~file.indexOf('.js')) require(models_path + '/' + file);
     });
+
+    // set up routing middleware
+    require('../app/routes/index')(app);
 
     // pass passport for configuration
     require('./passport')(passport);
@@ -88,8 +95,6 @@ module.exports = function() {
         });
     }
 
-    // set up routing middleware
-    let routes = require('../app/routes/index')(app);
     return app;
 };
 

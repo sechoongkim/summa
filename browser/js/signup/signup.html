@@ -11,32 +11,33 @@
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input ng-model="register.firstName" type="text" class="validate" required>
           <label for="first_name">First Name</label>
+          <input ng-model="register.firstName" type="text" class="validate" required>
         </div>
         <div class="input-field col s6">
-          <input ng-model="register.lastName" type="text" class="validate">
           <label for="last_name">Last Name</label>
+          <input ng-model="register.lastName" type="text" class="validate" required>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input ng-model="register.email" type="email" class="validate" required>
           <label for="email" data-error="Invalid Email">Email</label>
+          <input ng-model="register.email" type="email" class="validate" required>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input ng-model="register.password" type="password" class="validate" required>
+          <label for="password">Username</label>
+          <input ng-model="register.username" type="text" class="validate" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
           <label for="password">Password</label>
+          <input ng-model="register.password" type="password" class="validate" required>
         </div>
       </div>
       <button type="submit" class="btn waves-effect waves-light ">Submit</button>
     </form>
-    <div class="col s12 m1 l1"></div>
-    <div class="col s12 m3 l4">
-
-
-    </div>
   </div>
 </div>
