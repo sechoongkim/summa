@@ -16,8 +16,8 @@ app.directive('navbar', function ($rootScope, $state) {
 
             scope.items = [
                 { label: 'Home', state: 'home' },
-                { label: 'About', state: 'about' },
-                { label: 'Projects', state: 'projects' }
+                { label: 'Signup', state: 'signup' },
+                { label: 'Login', state: 'login' }
                 
             ];
 

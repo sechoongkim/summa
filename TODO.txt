@@ -9,15 +9,16 @@ ICEBOX:
 -bower install front-end dependencies
 -add salts and hashes for passwords
 
-
 TICKETS:
 ------------------------------------------------------------
 ****
 SJ:
+-Create spotify oath login stuff 
 
 
 ****
 Sej:
+-Create views for home, user state, basic routes to connect to backend, tables
 
 
 ****
