@@ -38,14 +38,20 @@ function findError(user) {
  	// save the new user to the database
  	user.save(function(err) {
  		if (err) {
- 			console.log("error!");
- 			User.findOne({email: user.email}, function(err, entry) {
- 				if (entry) errMssg = "Email is already in use";
- 				else errMssg = "Username is already in use";
+ 			if(err.name == "ValidationError"){
  				res.status(400).send({
- 					message: errMssg
+ 				message: "Passowrd to short"
  				});
- 			});
+ 			}
+ 			else{
+	 			User.findOne({email: user.email}, function(err, entry) {
+	 				if (entry) errMssg = "Email is already in use";
+	 				else errMssg = "Username is already in use";
+	 				res.status(400).send({
+	 					message: errMssg
+	 				});
+	 			});
+ 			}
  		} else {
  			// remove sensitive info before login for security measures
  			user.password = undefined;
@@ -60,6 +66,7 @@ function findError(user) {
  		}
  	});
  };
+
 
 /**
  * Signin after passport authentication
