@@ -72,8 +72,11 @@ function findError(user) {
  * Signin after passport authentication
  */
 exports.signin = function(req, res, next) {
+	console.log("REQ",req.body);
 	passport.authenticate('local', function(err, user, info) {
+
 		if (err || !user) {
+			console.log("YOU DONE FUCKED UP", info);
 			res.status(400).send(info);
 		} else {
  			// remove sensitive info before login for security measures

@@ -16,12 +16,18 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/af.js"></script>
     	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
 
+     <!--    <script src="components/moment/moment.js"></script>
+        <script src="components/angular-moment/angular-moment.js"></script> -->
+
         <script src= "/js/app.js" defer></script><!--make sure to defer this because angular needs to load before called-->
         <script src= "/js/home/home.controller.js" defer></script>
         <script src= "/js/home/home.state.js" defer></script>
         <script src= "/js/navbar/navbar.directive.js" defer></script>
+        <script src= "/js/moment/moment.controller.js" defer></script>
+        <script src= "/js/moment/moment.directive.js" defer></script>
         <script src= "/js/login/login.controller.js" defer></script>
         <script src= "/js/login/login.state.js" defer></script>
+        <script src= "/js/login/login.factory.js" defer></script>
         <script src= "/js/signup/signup.controller.js" defer></script>
         <script src= "/js/signup/signup.state.js" defer></script>
         <script src= "/js/signup/signup.factory.js" defer></script>
@@ -30,6 +36,7 @@
     </head>
     <body ng-app = "BeetsApp">
         <navbar></navbar>
+        <moment></moment>
         <ui-view></ui-view> 
     </body>
 </html>
