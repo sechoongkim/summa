@@ -33,6 +33,7 @@ module.exports = function(passport) {
 					message: 'Unknown user or invalid password'
 				});
 			}
+			console.log(user);
 			if (!user.authenticate(password)) {
 				return done(null, false, {
 					message: 'Unknown user or invalid password'
