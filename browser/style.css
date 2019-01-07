@@ -26,3 +26,15 @@
     background-color: #4CAF50;
     color: white;
 }
+
+
+@media only screen and (min-width : 768px) {
+    .is-table-row {
+        display: table;
+    }
+    .is-table-row [class*="col-"] {
+        float: none;
+        display: table-cell;
+        vertical-align: top;
+    }
+}
