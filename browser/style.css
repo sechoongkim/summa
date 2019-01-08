@@ -2,6 +2,9 @@
 .topnav {
     background-color: #333;
     overflow: hidden;
+    z-index: 99;
+    position: fixed;
+    width: 100%;
 }
 
 /* Style the links inside the navigation bar */
@@ -27,7 +30,7 @@
     color: white;
 }
 
-
+/*css for columns*/
 @media only screen and (min-width : 768px) {
     .is-table-row {
         display: table;
@@ -37,4 +40,35 @@
         display: table-cell;
         vertical-align: top;
     }
+}
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+    scroll-snap-type: mandatory;
+    scroll-snap-points-y: repeat(100vh);
+    scroll-snap-type: y mandatory;
+}
+
+
+section {
+
+    border-bottom: 1px solid white;
+    padding: 1rem;
+    height: 100vh;
+    scroll-snap-align: start;
+    text-align: center;
+    position: relative;
+}
+h1  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: white;
+    width: 100%;
+    left: 0;
+    font-size: calc(1rem + 3vw);
 }
